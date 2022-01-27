@@ -1,0 +1,28 @@
+services:
+  - type: pserv
+    name: private-service
+    env: node
+    repo: https://github.com/render-examples/express-hello-world
+    buildCommand: yarn
+    startCommand: node app.js
+  - type: web
+    name: oauth2-proxy
+    env: docker
+    envVars:
+      - key: UPSTREAM
+        fromService:
+          name: private-service
+          type: pserv
+          property: hostport
+      - key: OAUTH2_PROXY_PROVIDER
+        sync: false
+      - key: OAUTH2_PROXY_CLIENT_ID
+        sync: false
+      - key: OAUTH2_PROXY_CLIENT_SECRET
+        sync: false
+      - key: OAUTH2_PROXY_COOKIE_SECRET
+        generateValue: true
+      - key: OAUTH2_PROXY_EMAIL_DOMAINS
+        value: '*'
+      - key: OAUTH2_PROXY_HTTP_ADDRESS
+        value: ":10000"
