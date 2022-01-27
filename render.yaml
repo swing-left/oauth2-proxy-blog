@@ -2,12 +2,14 @@ services:
   - type: pserv
     name: private-service
     env: node
+    plan: free
     repo: https://github.com/render-examples/express-hello-world
     buildCommand: yarn
     startCommand: node app.js
   - type: web
     name: oauth2-proxy
     env: docker
+    plan: free
     envVars:
       - key: UPSTREAM
         fromService:
