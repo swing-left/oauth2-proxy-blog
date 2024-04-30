@@ -45,4 +45,4 @@ COPY --from=builder /go/src/github.com/oauth2-proxy/oauth2-proxy/jwt_signing_key
 
 USER 2000:2000
 
-ENTRYPOINT [ "sh", "-c", "/bin/oauth2-proxy --upstream=http://${UPSTREAM}" ]
+ENTRYPOINT [ "sh", "-c", "/bin/oauth2-proxy --upstream=http://${UPSTREAM} --http-address=0.0.0.0:4180" ]
